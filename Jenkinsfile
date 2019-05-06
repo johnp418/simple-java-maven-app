@@ -1,29 +1,17 @@
 pipeline {
-  agent {
-    docker {
-      image 'maven:3-alpine'
-      args '-v /root/.m2:/root/.m2'
-    }
-
-  }
+  agent none
   stages {
-    stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            sh 'mvn -B -DskipTests clean package'
-          }
-        }
-        stage('Build-p') {
-          steps {
-            sh 'echo "hello"'
-          }
-        }
+    stage('PWD') {
+      steps {
+        sh 'pwd'
       }
     }
-    stage('LastStep') {
+    stage('DIR INTO') {
       steps {
-        sh 'echo "done"'
+        dir(path: 'src') {
+          sh 'pwd'
+        }
+
       }
     }
   }
